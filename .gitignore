@@ -117,7 +117,7 @@ typings/
 # Bundle files
 bundle.js
 bundle.js.map
-main.js
+# main.js
 
 # DS_Store
 .DS_Store
