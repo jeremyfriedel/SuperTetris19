@@ -1,0 +1,13 @@
+canvas {
+    margin: auto;
+    /* background-color: white; */
+    display: block;
+    
+}
+
+body {
+    background-image: url('../images/background.png');
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+
+}
