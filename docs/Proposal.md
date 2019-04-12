@@ -22,7 +22,7 @@ In addition, this project will include:
 
 ### Wireframes
 
-![alt text](/Screen%20Shot%202019-04-10%20at%203.49.12%20PM.png)
+![alt text](/docs/Screen%20Shot%202019-04-10%20at%203.49.12%20PM.png)
 
 This app will consist of a single screen with game board, game controls, and nav links to the Github and my LinkedIn,
 
