@@ -5,15 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="icon" href="" type="image/png" />
 
     <title>Tetris</title>
     <link rel='stylesheet' href='./stylesheets/canvas.css' />
 
 </head>
 <body>
-    <canvas width='300' height='720'></canvas>
+    <div class="score-div">
+
+        <h1>Score</h1>
+        <h1 id="score"></h1>
+    </div>
+    <canvas width='300' height='600'></canvas>
         <script src="main.js"></script>
+
+
+    <div class="instructions">
+
+        Space to drop, Up to rotate, M for music
+    </div>
+
+    <div class="saved-piece">
+
+        Saved Piece: <div id = 'saved-piece'> Press Shift to save a piece for later</div>
+    </div>
+
 
 </body>
     
