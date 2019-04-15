@@ -133,46 +133,46 @@ class GameLogic {
         
         this.previewArrays = [
             [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 1, 1, 0],
-                [1, 1, 0, 0]
+                [0, 0, 0],
+                [0, 0, 0],
+                [0, 1, 1],
+                [1, 1, 0]
             ],
             [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 1, 1, 0],
-                [0, 0, 1, 1]
+                [0, 0, 0],
+                [0, 0, 0],
+                [1, 1, 0],
+                [0, 1, 1]
             ],
             [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 1, 1, 0],
-                [0, 1, 1, 0]
+                [0, 0, 0],
+                [0, 0, 0],
+                [1, 1, 0],
+                [1, 1, 0]
             ],
             [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 1, 0],
-                [0, 1, 1, 1]
+                [0, 0, 0],
+                [0, 0, 0],
+                [0, 1, 0],
+                [1, 1, 1]
             ],
             [
-                [0, 0, 0, 0],
-                [0, 0, 1, 0],
-                [0, 0, 1, 0],
-                [0, 1, 1, 0]
+                [0, 0, 0],
+                [0, 1, 0],
+                [0, 1, 0],
+                [1, 1, 0]
             ],
             [
-                [0, 0, 0, 0],
-                [1, 0, 0, 0],
-                [1, 0, 0, 0],
-                [1, 1, 0, 0]
+                [0, 0, 0],
+                [1, 0, 0],
+                [1, 0, 0],
+                [1, 1, 0]
             ],
             [
-                [1, 0, 0, 0],
-                [1, 0, 0, 0],
-                [1, 0, 0, 0],
-                [1, 0, 0, 0]
+                [1, 0, 0],
+                [1, 0, 0],
+                [1, 0, 0],
+                [1, 0, 0]
             ]
         ];
         this.PreviewMatrix = this.previewArrays[shapeId];
@@ -181,10 +181,10 @@ class GameLogic {
         this.canvasContextPreview = this.canvasPreview.getContext('2d');
         this.canvasPreviewHeight = this.canvasPreview.height;
         this.canvasPreviewWidth = this.canvasPreview.width;
-        this.PreviewNumOfColumns = 4;
+        this.PreviewNumOfColumns = 3;
         this.PreviewNumOfRows = 4;
         this.PreviewtileHeight = this.canvasPreviewHeight / this.PreviewNumOfRows;
-        this.PreviewtileWidth = this.canvasPreviewWidth / this.PreviewNumOfColumns;
+        this.PreviewtileWidth = this.PreviewtileHeight
         this.canvasContextPreview.fillStyle = 'white';
 
         this.canvasContextPreview.strokeStyle = 'silver';
