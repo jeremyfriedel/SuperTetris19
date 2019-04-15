@@ -11,19 +11,23 @@
 
 </head>
 <body>
+    <div class="high-score">
+    <h1>High Score: <span id ='high-score-num'></span></h1>
+    <h1 id="high-score"></h1>
+    </div>
+
     <div class="instructions">
         <ul>
             <li>Z: Start or Reset</li>
             <li>Space: Drop</li>
             <li>W, &#11014;: Rotate</li>
             <li>M: Mute/Unmute</li>
-            <li>Shift: Save a Tetromino</li>
+            <li>Shift: Hold a Tetromino</li>
         </ul>
     </div>
 
     <div class = "main">
     <div class="score-div">
-
         <h1>Score</h1>
         <h1 id="score"></h1>
     </div>
@@ -32,6 +36,7 @@
 
 
     <div class = "saved-piece-canvas">
+        <div class="hold-piece">Hold</div>
         <canvas width='75' height='100' id='canvas2'></canvas>
     </div>
     </div>

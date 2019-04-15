@@ -80,9 +80,12 @@ class GameLogic {
         this.playMusic = this.playMusic.bind(this);
         this.renderSavedPiece = this.renderSavedPiece.bind(this);
         this.drawPreviewTile = this.drawPreviewTile.bind(this);
+        this.putHighScore = this.putHighScore.bind(this);
+        this.putHighScore();
         this.score = 0;
         // this.canvasContext.lineWidth = 2;
         this.putScore();
+        this.scoring = [0, 40, 100, 300, 1200];
 
 
 
@@ -169,10 +172,10 @@ class GameLogic {
                 [1, 1, 0]
             ],
             [
-                [1, 0, 0],
-                [1, 0, 0],
-                [1, 0, 0],
-                [1, 0, 0]
+                [0, 1, 0],
+                [0, 1, 0],
+                [0, 1, 0],
+                [0, 1, 0]
             ]
         ];
         this.PreviewMatrix = this.previewArrays[shapeId];
@@ -190,7 +193,7 @@ class GameLogic {
         this.canvasContextPreview.strokeStyle = 'silver';
         // this.canvasContextPreview.lineWidth = 10;
         this.canvasContextPreview.clearRect(0, 0, this.canvasPreviewWidth, this.canvasPreviewHeight);
-        // this.canvasContextPreview.fillRect(0, 0, this.canvasPreviewWidth, this.canvasPreviewHeight);
+        this.canvasContextPreview.fillRect(0, 0, this.canvasPreviewWidth, this.canvasPreviewHeight);
         for (let xInd = 0; xInd < this.PreviewNumOfColumns; xInd++) {
             for (let yInd = 0; yInd < this.PreviewNumOfRows; yInd++) {
                 if (this.PreviewMatrix[yInd][xInd]) {
@@ -283,7 +286,8 @@ class GameLogic {
         this.lost = false;
         this.score = 0;
         this.putScore();
-        this.frameInterval = setInterval(this.frame, 500);
+        this.putHighScore();
+        this.frameInterval = setInterval(this.frame, 350);
         this.playMusic();
 
 
@@ -295,8 +299,11 @@ class GameLogic {
         }
 
         if (this.audioEnabled) {
-            this.themeMusic = new Audio('./music/Tetristheme.mp3');
-            this.themeMusic.volume = 0.2;
+            if (!this.themeMusic) {
+                this.themeMusic = new Audio('./music/Tetristheme.mp3');
+                this.themeMusic.volume = 0.15;
+                this.themeMusic.loop = true;
+            }
             this.themeMusic.play();
         }
 
@@ -330,6 +337,10 @@ class GameLogic {
     }
 
     rotate(activePiece) {
+        // dont rotate squares
+        if (this.pieceType === 2){
+            return activePiece;
+        }
         let rotatedPiece = [];
         for (let yInd = 0; yInd < this.sizeOfPiece; yInd++) {
             rotatedPiece[yInd] = [];
@@ -431,6 +442,10 @@ class GameLogic {
 
 
     collisionCheck(moveX = 0, moveY = 0, movedPiece = this.activePiece) {
+        
+        if (this.activePiece.length === 0){
+            return true;
+        }
         moveX = this.activeX + moveX;
         moveY = this.activeY + moveY;
 
@@ -445,9 +460,19 @@ class GameLogic {
                         if (this.notFalling && moveY == 1) {
                             this.lost = true;
 
-                            console.log('lost');
+                            // console.log('lost');
                             // this.score = "LOST";
                             // this.putScore();
+                            // document.cookie = `score=${this.score}`;
+                            if (document.cookie < this.score || this.score === 0){
+                                let d = new Date();
+                                d.setTime(d.getTime() + (3 * 24 * 60 * 60 * 1000));
+                                let expires = "expires=" + d.toUTCString();
+                                document.cookie = this.score + ";" + expires;
+                            }
+
+                            // console.log(document.cookie);
+
                         }
                         return false;
                     }
@@ -473,13 +498,13 @@ class GameLogic {
 
 
     deleteLines() {
+        this.combo = 0;
         for (let yInd = this.numOfRows - 1; yInd >= 0; yInd--) {
             let complete = this.matrix[yInd].every(this.notZero);
 
             if (complete) {
                 this.deleteAndMoveLine(yInd);
-                this.score++;
-                this.putScore();
+                this.combo++;
                 yInd++;
                 if (this.audioEnabled) {
                     if (!this.linecleareffect) {
@@ -488,13 +513,24 @@ class GameLogic {
                     this.linecleareffect.play();
                 }
             }
+
         }
+        // debugger
+        this.score += this.scoring[this.combo];
+        this.putScore();
+
     }
 
     putScore() {
         let scoreHTML = document.getElementById('score');
         scoreHTML.textContent = this.score;
     }
+
+    putHighScore() {
+        let scoreHighHTML = document.getElementById('high-score-num');
+        scoreHighHTML.textContent = document.cookie;
+    }
+
 
 
 
