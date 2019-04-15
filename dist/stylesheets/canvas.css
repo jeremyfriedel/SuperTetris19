@@ -1,27 +1,14 @@
-canvas {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateY(-50%) translateX(-50%);
-    
-}
 
 body {
     background-image: url('../images/background.png');
     background-size: cover;
-    /* background-repeat: no-repeat; */
-
 }
 
-
 .score-div {
-    color: white;
-    position: absolute;
-    /* left: 30%;
-    top: 30%;
-    transform: translateY(-50%) translateX(-50%); */
-    top: 30px;
-    left: 30px;
+    color: #fff;
+    position: relative;
+    right: 30%;
+    margin-top: 30%;
 }
 
 #score {
@@ -29,23 +16,28 @@ body {
 }
 
 .instructions {
-    color: white;
-    position: absolute;
-    /* top: 30%;
-    left: 66%; */
-    font-size: 20px;
-    top: 0px;
-    right: 0px;
-}
-
-.saved-piece {
+    color: #fff;
     position: absolute;
     font-size: 20px;
-    bottom:     0px;
-    right: 0px;
-
-    color: yellow;
+    top: 0;
+    right: 0;
     text-align: right;
 }
 
+.saved-piece-canvas {
+    position: relative;
+    left: 30%;
+    margin-top: 30%;
+}
 
+.main {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
+
+ul {
+    list-style: none;
+}

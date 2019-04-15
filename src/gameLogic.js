@@ -78,6 +78,8 @@ class GameLogic {
         this.rotate = this.rotate.bind(this);
         this.handleSavePiece = this.handleSavePiece.bind(this);
         this.playMusic = this.playMusic.bind(this);
+        this.renderSavedPiece = this.renderSavedPiece.bind(this);
+        this.drawPreviewTile = this.drawPreviewTile.bind(this);
         this.score = 0;
         // this.canvasContext.lineWidth = 2;
         this.putScore();
@@ -124,6 +126,90 @@ class GameLogic {
             }
         }
     }
+
+    renderSavedPiece(shapeId, color) {
+        // this.piecesNames = ['S piece', 'Z piece', 'Square piece', 'T piece', 'J piece', 'L piece', 'Line piece']
+
+        
+        this.previewArrays = [
+            [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 1, 1, 0],
+                [1, 1, 0, 0]
+            ],
+            [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 1, 1, 0],
+                [0, 0, 1, 1]
+            ],
+            [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 1, 1, 0],
+                [0, 1, 1, 0]
+            ],
+            [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 1, 0],
+                [0, 1, 1, 1]
+            ],
+            [
+                [0, 0, 0, 0],
+                [0, 0, 1, 0],
+                [0, 0, 1, 0],
+                [0, 1, 1, 0]
+            ],
+            [
+                [0, 0, 0, 0],
+                [1, 0, 0, 0],
+                [1, 0, 0, 0],
+                [1, 1, 0, 0]
+            ],
+            [
+                [1, 0, 0, 0],
+                [1, 0, 0, 0],
+                [1, 0, 0, 0],
+                [1, 0, 0, 0]
+            ]
+        ];
+        this.PreviewMatrix = this.previewArrays[shapeId];
+        this.canvasPreview = document.getElementsByTagName('canvas')[1];
+
+        this.canvasContextPreview = this.canvasPreview.getContext('2d');
+        this.canvasPreviewHeight = this.canvasPreview.height;
+        this.canvasPreviewWidth = this.canvasPreview.width;
+        this.PreviewNumOfColumns = 4;
+        this.PreviewNumOfRows = 4;
+        this.PreviewtileHeight = this.canvasPreviewHeight / this.PreviewNumOfRows;
+        this.PreviewtileWidth = this.canvasPreviewWidth / this.PreviewNumOfColumns;
+        this.canvasContextPreview.fillStyle = 'white';
+
+        this.canvasContextPreview.strokeStyle = 'silver';
+        // this.canvasContextPreview.lineWidth = 10;
+        this.canvasContextPreview.clearRect(0, 0, this.canvasPreviewWidth, this.canvasPreviewHeight);
+        // this.canvasContextPreview.fillRect(0, 0, this.canvasPreviewWidth, this.canvasPreviewHeight);
+        for (let xInd = 0; xInd < this.PreviewNumOfColumns; xInd++) {
+            for (let yInd = 0; yInd < this.PreviewNumOfRows; yInd++) {
+                if (this.PreviewMatrix[yInd][xInd]) {
+                    this.canvasContextPreview.fillStyle = this.colors[color];
+                    this.drawPreviewTile(xInd, yInd);
+                }
+            }
+        }
+
+    }
+
+    drawPreviewTile(xInd, yInd) {
+
+        this.canvasContextPreview.fillRect(this.PreviewtileWidth * xInd,
+            this.PreviewtileHeight * yInd, this.PreviewtileWidth - 2, this.PreviewtileHeight - 2);
+        this.canvasContextPreview.strokeRect(this.PreviewtileWidth * xInd,
+            this.PreviewtileHeight * yInd, this.PreviewtileWidth - 2, this.PreviewtileHeight - 2);
+    }
+
 
 
 
@@ -193,13 +279,13 @@ class GameLogic {
         this.resetIntervals();
         this.reRender = setInterval(this.render, 40);
         this.clear();
-        this.randomPiece(); 
+        this.randomPiece();
         this.lost = false;
         this.score = 0;
         this.putScore();
         this.frameInterval = setInterval(this.frame, 500);
         this.playMusic();
-        
+
 
     }
 
@@ -210,6 +296,7 @@ class GameLogic {
 
         if (this.audioEnabled) {
             this.themeMusic = new Audio('./music/Tetristheme.mp3');
+            this.themeMusic.volume = 0.2;
             this.themeMusic.play();
         }
 
@@ -301,9 +388,9 @@ class GameLogic {
         } else if (key === 'save') {
             this.handleSavePiece();
         } else if (key === 'music') {
-            
+
             this.audioEnabled = !this.audioEnabled;
-            this.playMusic();   
+            this.playMusic();
         }
 
 
@@ -321,22 +408,24 @@ class GameLogic {
             this.randomPiece(this.savedPiece, this.savedId);
             this.savedPiece = this.oldPiece;
             this.savedId = this.oldPieceType;
-            let scoreHTML = document.getElementById('saved-piece');
-            // scoreHTML.textContent = this.pieceNames[this.savedId];
-            scoreHTML.textContent = this.piecesNames[this.savedId];
+            // let scoreHTML = document.getElementById('saved-piece');
+            // // scoreHTML.textContent = this.pieceNames[this.savedId];
+            // scoreHTML.textContent = this.piecesNames[this.savedId];
 
 
 
         } else {
             this.savedPiece = this.piece;
             this.savedId = this.pieceType;
-            let scoreHTML = document.getElementById('saved-piece');
-            // scoreHTML.textContent = this.pieceNames[this.savedId];
-            scoreHTML.textContent = this.piecesNames[this.savedId];
+            // let scoreHTML = document.getElementById('saved-piece');
+            // // scoreHTML.textContent = this.pieceNames[this.savedId];
+            // scoreHTML.textContent = this.piecesNames[this.savedId];
 
             this.randomPiece();
 
         }
+
+        this.renderSavedPiece(this.savedId, this.savedId);
 
     }
 
@@ -392,9 +481,9 @@ class GameLogic {
                 this.score++;
                 this.putScore();
                 yInd++;
-                if (this.audioEnabled){
-                    if (!this.linecleareffect){
-                    this.linecleareffect = new Audio('./music/line.wav');
+                if (this.audioEnabled) {
+                    if (!this.linecleareffect) {
+                        this.linecleareffect = new Audio('./music/line.wav');
                     }
                     this.linecleareffect.play();
                 }
