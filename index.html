@@ -11,24 +11,39 @@
 
 </head>
 <body>
+    <div class="instructions">
+        <ul>
+            <li>Z: Start or Reset</li>
+            <li>Space: Drop</li>
+            <li>W, &#11014;: Rotate</li>
+            <li>M: Mute/Unmute</li>
+            <li>Shift: Save a Tetromino</li>
+        </ul>
+    </div>
+
+    <div class = "main">
     <div class="score-div">
 
         <h1>Score</h1>
         <h1 id="score"></h1>
     </div>
-    <canvas width='300' height='600'></canvas>
-        <script src="main.js"></script>
+    <canvas width='300' height='600' id = 'canvas1'></canvas>
 
 
-    <div class="instructions">
 
-        Space to drop, Up to rotate, M for audio
+    <div class = "saved-piece-canvas">
+        <canvas width='100' height='100' id='canvas2'></canvas>
     </div>
+    </div>
+
 
     <div class="saved-piece">
 
-        Saved Piece: <div id = 'saved-piece'> Press Shift to save a piece for later</div>
+        <!-- Saved Piece: <div id = 'saved-piece'> Press Shift to save a piece for later</div> -->
+        <script src="main.js"></script>
+
     </div>
+
 
 
 </body>
