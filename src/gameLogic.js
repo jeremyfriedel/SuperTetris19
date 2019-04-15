@@ -43,8 +43,8 @@ class GameLogic {
             [1, 1, 1, 1]
 
         ];
-        this.piecesNames = ['Z piece', 'Z piece', 'Square piece', 'T piece', 'J piece', 'L piece', 'Line piece']
-        this.colors = ['blue', 'green', 'yellow', 'purple', 'red', 'cyan', 'orange'];
+        this.piecesNames = ['S piece', 'Z piece', 'Square piece', 'T piece', 'J piece', 'L piece', 'Line piece']
+        this.colors = ['#00F000', '#F02300', '#d1d100', '#9F35F0', '#022FF0', '#F0A000', '#00F0F0'];
 
         this.drawTile = this.drawTile.bind(this);
         this.render = this.render.bind(this);
@@ -79,6 +79,7 @@ class GameLogic {
         this.handleSavePiece = this.handleSavePiece.bind(this);
         this.playMusic = this.playMusic.bind(this);
         this.score = 0;
+        // this.canvasContext.lineWidth = 2;
         this.putScore();
 
 
@@ -230,8 +231,12 @@ class GameLogic {
             this.deleteLines();
             if (this.lost) {
                 this.resetIntervals();
+                this.canvasContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+                this.canvasContext.fillStyle = 'white';
+                this.canvasContext.fillText("Press Z to Play Again!", this.canvasWidth / 2, this.canvasHeight / 2);
+
                 // return 0;
-                this.resetGame();
+                // this.resetGame();
             }
             this.randomPiece();
         }
@@ -352,8 +357,8 @@ class GameLogic {
                             this.lost = true;
 
                             console.log('lost');
-                            this.score = "LOST";
-                            this.putScore();
+                            // this.score = "LOST";
+                            // this.putScore();
                         }
                         return false;
                     }
@@ -387,8 +392,12 @@ class GameLogic {
                 this.score++;
                 this.putScore();
                 yInd++;
-                let linecleareffect = new Audio('./music/line.wav');
-                linecleareffect.play();
+                if (this.audioEnabled){
+                    if (!this.linecleareffect){
+                    this.linecleareffect = new Audio('./music/line.wav');
+                    }
+                    this.linecleareffect.play();
+                }
             }
         }
     }
