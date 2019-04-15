@@ -77,7 +77,7 @@ class GameLogic {
         this.putScore.bind(this);
         this.rotate = this.rotate.bind(this);
         this.handleSavePiece = this.handleSavePiece.bind(this);
-        this.playMusic = this.playMusic().bind(this);
+        this.playMusic = this.playMusic.bind(this);
         this.score = 0;
         this.putScore();
 
