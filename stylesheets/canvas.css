@@ -24,10 +24,16 @@ body {
     text-align: right;
 }
 
-.saved-piece-canvas {
+.saved-piece-canvas  {
     position: relative;
     left: 30%;
     margin-top: 30%;
+}
+    
+
+.saved-piece-canvas > canvas {
+    background-color: white;
+    
 }
 
 .main {
