@@ -12,7 +12,12 @@ body {
 }
 
 .score-div{
-    /* border: 1px solid black; */
+    height: 30%;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
     
 }
 
