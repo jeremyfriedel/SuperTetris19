@@ -327,7 +327,9 @@ class GameLogic {
                 this.resetIntervals();
                 this.canvasContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
                 this.canvasContext.fillStyle = 'white';
+
                 this.canvasContext.fillText("Press Z to Play Again!", this.canvasWidth / 2, this.canvasHeight / 2);
+                this.canvasContext.fillText("GAME OVER!", this.canvasWidth / 2, (this.canvasHeight / 2) - 40);
 
                 // return 0;
                 // this.resetGame();
