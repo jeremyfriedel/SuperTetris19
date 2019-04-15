@@ -94,21 +94,12 @@ class GameLogic {
             this.tileHeight * yInd, this.tileWidth - 2, this.tileHeight - 2);
     }
 
-    // getRandomColor() {
-    //     let letters = '0123456789ABCDEF';
-    //     let color = '#';
-    //     for (let i = 0; i < 6; i++) {
-    //         color += letters[Math.floor(Math.random() * 16)];
-    //     }
-    //     return color;
-    // }
 
 
 
 
     render() {
 
-        // this.canvasContext.fillStyle = this.activeColorBack;
 
         this.canvasContext.strokeStyle = 'silver';
         this.canvasContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
@@ -139,7 +130,6 @@ class GameLogic {
 
 
     randomPiece(givenPiece, givenId) {
-        // this.pieceType = Math.floor(Math.random() * this.pieces.length);
         if (givenPiece === undefined) {
             // debugger
             this.pieceType = Math.floor(Math.random() * this.pieces.length);
@@ -153,8 +143,6 @@ class GameLogic {
 
 
 
-        // this.activeColor = this.getRandomColor();
-        // this.activeColorBack = this.getRandomColor();
 
 
         for (let yInd = 0; yInd < this.sizeOfPiece; yInd++) {

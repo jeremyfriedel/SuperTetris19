@@ -1,11 +1,9 @@
 export const randomPiece(givenPiece, givenId) {
         // this.pieceType = Math.floor(Math.random() * this.pieces.length);
         if (givenPiece === undefined) {
-            // debugger
             this.pieceType = Math.floor(Math.random() * this.pieces.length);
             this.piece = this.pieces[this.pieceType];
         } else {
-            // debugger
             this.pieceType = givenId;
             this.piece = givenPiece;
         }
@@ -13,8 +11,6 @@ export const randomPiece(givenPiece, givenId) {
 
 
 
-        // this.activeColor = this.getRandomColor();
-        // this.activeColorBack = this.getRandomColor();
 
 
         for (let yInd = 0; yInd < this.sizeOfPiece; yInd++) {
