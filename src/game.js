@@ -1,14 +1,16 @@
-import KeyHashing from './input';
-import CanvasDraw from './canvas';
+// import KeyHashing from './input';
+// import CanvasDraw from './canvas';
+import GameLogic from './gameLogic';
 
 
 
 class Game {
     constructor(){
-        document.body.onkeydown = KeyHashing;
         
-        const e = new CanvasDraw();
-        e.render();
+        
+        const game = new GameLogic();
+        
+        // game.resetGame();
         //  setInterval(e.render, 1);
 
         

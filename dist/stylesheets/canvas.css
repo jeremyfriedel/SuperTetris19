@@ -1,7 +1,8 @@
 canvas {
-    margin: auto;
-    /* background-color: white; */
-    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
     
 }
 
@@ -11,3 +12,40 @@ body {
     /* background-repeat: no-repeat; */
 
 }
+
+
+.score-div {
+    color: white;
+    position: absolute;
+    /* left: 30%;
+    top: 30%;
+    transform: translateY(-50%) translateX(-50%); */
+    top: 30px;
+    left: 30px;
+}
+
+#score {
+    text-align: center;
+}
+
+.instructions {
+    color: white;
+    position: absolute;
+    /* top: 30%;
+    left: 66%; */
+    font-size: 20px;
+    top: 0px;
+    right: 0px;
+}
+
+.saved-piece {
+    position: absolute;
+    font-size: 20px;
+    bottom:     0px;
+    right: 0px;
+
+    color: yellow;
+    text-align: right;
+}
+
+
