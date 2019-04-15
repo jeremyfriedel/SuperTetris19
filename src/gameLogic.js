@@ -43,7 +43,7 @@ class GameLogic {
             [1, 1, 1, 1]
 
         ];
-        this.piecesNames = ['Z piece', 'Z piece', 'Square piece', 'T piece', 'J piece', 'L piece', 'line piece']
+        this.piecesNames = ['Z piece', 'Z piece', 'Square piece', 'T piece', 'J piece', 'L piece', 'Line piece']
         this.colors = ['blue', 'green', 'yellow', 'purple', 'red', 'cyan', 'orange'];
 
         this.drawTile = this.drawTile.bind(this);
