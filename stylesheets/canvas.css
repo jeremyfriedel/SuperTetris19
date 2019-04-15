@@ -11,6 +11,12 @@ body {
     margin-top: 30%;
 }
 
+.score-div{
+    /* border: 1px solid black; */
+    
+}
+
+
 #score {
     text-align: center;
 }
@@ -33,6 +39,8 @@ body {
 
 .saved-piece-canvas > canvas {
     /* background-color: #fff; */
+    border: 1px black solid;
+
     
 }
 
