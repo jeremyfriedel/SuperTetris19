@@ -10,13 +10,14 @@ class GameLogic {
         this.numOfRows = 20;
         this.tileHeight = this.canvasHeight / this.numOfRows;
         this.tileWidth = this.canvasWidth / this.numOfColumns;
-        this.canvasContext.font = "30px Arial";
+        this.canvasContext.font = '30px super_mario_256regular';
+        
         this.canvasContext.fillStyle = 'white';
         this.canvasContext.textAlign = "center";
         this.audioEnabled = false;
 
         this.canvasContext.fillText("Press Z to Play!", this.canvasWidth / 2, this.canvasHeight / 2);
-
+        
 
 
 

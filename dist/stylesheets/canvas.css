@@ -91,3 +91,16 @@ ul {
 .next-piece {
     margin-top:4em;
 }
+
+@font-face {
+    font-family: 'super_mario_256regular';
+    src: url('./fonts/mario/supermario256-webfont.woff2') format('woff2'),
+        url('./fonts/mario/supermario256-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'super_mario_256regular';
+    letter-spacing: 0.1em;
+}
