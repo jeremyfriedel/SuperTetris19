@@ -36,9 +36,10 @@ body {
 }
 
 .saved-piece-canvas  {
-    position: relative;
-    left: 30%;
-    margin-top: 30%;
+        /* position: relative;
+        left: 30%;
+        margin-top: 30%; */
+
 }
     
 
@@ -61,7 +62,7 @@ ul {
     list-style: none;
 }
 
-.hold-piece{
+.hold-piece, .next-piece{
     text-align: center;
     color: white;
     font-size: 20px;
@@ -73,4 +74,16 @@ ul {
 
 #canvas1 {
     border: 1px solid black;
+}
+
+#canvas3 {
+    border: 1px solid black;
+}
+
+.hold-and-preview{
+    position: relative;
+    left: 30%;
+    margin-top: 30%;
+
+
 }
