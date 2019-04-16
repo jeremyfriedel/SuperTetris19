@@ -10,7 +10,7 @@ class GameLogic {
         this.numOfRows = 20;
         this.tileHeight = this.canvasHeight / this.numOfRows;
         this.tileWidth = this.canvasWidth / this.numOfColumns;
-        this.canvasContext.font = '30px super_mario_256regular';
+        this.canvasContext.font = '30px Helvetica';
         
         this.canvasContext.fillStyle = 'white';
         this.canvasContext.textAlign = "center";
@@ -428,6 +428,7 @@ class GameLogic {
                 this.canvasContext.fillStyle = 'white';
                 this.clearPreviewAndNext();
                 this.putHighScore();
+                this.canvasContext.font = '20px Helvetica';
                 this.canvasContext.fillText("Press Z to Play Again!", this.canvasWidth / 2, this.canvasHeight / 2);
                 this.canvasContext.fillText("GAME OVER!", this.canvasWidth / 2, (this.canvasHeight / 2) - 40);
 
