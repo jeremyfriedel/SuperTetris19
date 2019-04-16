@@ -98,10 +98,11 @@ class GameLogic {
         ];
         this.nextArrays = this.previewArrays;
 
-        this.piecesNames = ['S piece', 'Z piece', 'Square piece', 'T piece', 'J piece', 'L piece', 'Line piece']
+        this.piecesNames = ['S piece', 'Z piece', 'Square', 'T piece', 'J piece', 'L piece', 'Line piece']
         // this.colors = ['#00F000', '#F02300', '#d1d100', '#9F35F0', '#022FF0', '#F0A000', '#00F0F0'];
 
-        this.colors = ['#349E00', '#6F22A8', '#FEDE1B', '#A737FA', '#2131F8', '#FB700A', '#03E5FF'];
+        this.colors =     ['#349E00', '#EC003F', '#FEDE1B', '#A737FA', '#2131F8', '#FB700A', '#03E5FF'];
+        this.dropColors = ['#194204', '#800000', '#3D3107', '#27003B', '#04003C', '#3B1103', '#05383A'];
 
         this.resetPieceQueue = this.resetPieceQueue.bind(this);
         this.resetPieceQueue();
@@ -110,6 +111,9 @@ class GameLogic {
         this.drawTile = this.drawTile.bind(this);
         this.render = this.render.bind(this);
         this.stopFalling = this.stopFalling.bind(this);
+        this.calculateDrop = this.calculateDrop.bind(this);
+        this.renderDrop = this.renderDrop.bind(this);
+        this.drawDropTile = this.drawDropTile.bind(this);
         this.frame = this.frame.bind(this);
         this.randomPiece = this.randomPiece.bind(this);
         this.drawNextTile = this.drawNextTile.bind(this);
@@ -160,9 +164,16 @@ class GameLogic {
 
         this.canvasContext.fillRect(this.tileWidth * xInd,
             this.tileHeight * yInd, this.tileWidth - 2, this.tileHeight - 2);
-        this.canvasContext.strokeRect(this.tileWidth * xInd,
+        // this.canvasContext.strokeRect(this.tileWidth * xInd,
+        //     this.tileHeight * yInd, this.tileWidth - 2, this.tileHeight - 2);
+    }
+
+    drawDropTile(xInd, yInd) {
+
+        this.canvasContext.fillRect(this.tileWidth * xInd,
             this.tileHeight * yInd, this.tileWidth - 2, this.tileHeight - 2);
     }
+
 
     strokeTile(xInd, yInd) {
         this.canvasContext.strokeRect(this.tileWidth * xInd,
@@ -188,14 +199,17 @@ class GameLogic {
         this.canvasContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
         this.canvasContext.fillStyle = 'black';
         this.canvasContext.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
-        this.canvasContext.strokeStyle = '#1B1B1B';
+        // this.canvasContext.strokeStyle = '#1B1B1B';
 
         // for (let xInd = 0; xInd < this.numOfColumns; xInd++) {
         //     for (let yInd = 0; yInd < this.numOfRows; yInd++) {
         //         this.strokeTile(xInd, yInd);
         //     }
         // }
-        this.canvasContext.strokeStyle = 'silver';
+        this.calculateDrop();
+        this.renderDrop();
+
+        // this.canvasContext.strokeStyle = 'silver';
 
         for (let xInd = 0; xInd < this.numOfColumns; xInd++) {
             for (let yInd = 0; yInd < this.numOfRows; yInd++) {
@@ -205,7 +219,7 @@ class GameLogic {
                 }
             }
         }
-        this.canvasContext.strokeStyle = 'silver';
+        // this.canvasContext.strokeStyle = 'silver';
         for (let yInd = 0; yInd < this.sizeOfPiece; yInd++) {
             for (let xInd = 0; xInd < this.sizeOfPiece; xInd++) {
                 if (this.activePiece[yInd][xInd]) {
@@ -214,6 +228,25 @@ class GameLogic {
                 }
             }
         }
+
+
+
+
+    }
+
+    renderDrop(){
+        // if (this.dropY - this.activeY > 3) {
+            for (let yInd = 0; yInd < this.sizeOfPiece; yInd++) {
+                for (let xInd = 0; xInd < this.sizeOfPiece; xInd++) {
+                    // debugger
+                    if (this.preDrop[yInd][xInd]) {
+                        this.canvasContext.fillStyle = this.dropColors[this.preDrop[yInd][xInd] - 1];
+                        this.drawDropTile(this.dropX + xInd, this.bottomY + yInd);
+                    }
+                }
+            }
+        // }
+
     }
 
     renderSavedPiece(shapeId, color) {
@@ -230,7 +263,7 @@ class GameLogic {
         this.PreviewNumOfRows = 4;
         this.PreviewtileHeight = this.canvasPreviewHeight / this.PreviewNumOfRows;
         this.PreviewtileWidth = this.PreviewtileHeight
-        this.canvasContextPreview.fillStyle = 'black';
+        this.canvasContextPreview.fillStyle = '#422445';
 
         this.canvasContextPreview.strokeStyle = 'silver';
         // this.canvasContextPreview.lineWidth = 10;
@@ -260,7 +293,7 @@ class GameLogic {
         this.NextNumOfRows = 4;
         this.NexttileHeight = this.canvasNextHeight / this.NextNumOfRows;
         this.NexttileWidth = this.NexttileHeight;
-        this.canvasContextNext.fillStyle = 'black';
+        this.canvasContextNext.fillStyle = '#422445';
 
         this.canvasContextNext.strokeStyle = 'silver';
         this.canvasContextNext.clearRect(0, 0, this.canvasNextWidth, this.canvasNextHeight);
@@ -280,8 +313,8 @@ class GameLogic {
 
         this.canvasContextNext.fillRect(this.NexttileWidth * xInd,
             this.NexttileHeight * yInd, this.NexttileWidth - 2, this.NexttileHeight - 2);
-        this.canvasContextNext.strokeRect(this.NexttileWidth * xInd,
-            this.NexttileHeight * yInd, this.NexttileWidth - 2, this.NexttileHeight - 2);
+        // this.canvasContextNext.strokeRect(this.NexttileWidth * xInd,
+        //     this.NexttileHeight * yInd, this.NexttileWidth - 2, this.NexttileHeight - 2);
     }
 
 
@@ -290,8 +323,8 @@ class GameLogic {
 
         this.canvasContextPreview.fillRect(this.PreviewtileWidth * xInd,
             this.PreviewtileHeight * yInd, this.PreviewtileWidth - 2, this.PreviewtileHeight - 2);
-        this.canvasContextPreview.strokeRect(this.PreviewtileWidth * xInd,
-            this.PreviewtileHeight * yInd, this.PreviewtileWidth - 2, this.PreviewtileHeight - 2);
+        // this.canvasContextPreview.strokeRect(this.PreviewtileWidth * xInd,
+        //     this.PreviewtileHeight * yInd, this.PreviewtileWidth - 2, this.PreviewtileHeight - 2);
     }
 
 
@@ -337,6 +370,10 @@ class GameLogic {
         this.activeX = 5;
         this.activeY = 0;
 
+        this.preDrop = this.activePiece;
+        this.dropX = this.activeX;
+        this.dropY = this.activeY;
+
 
 
     }
@@ -379,14 +416,14 @@ class GameLogic {
         this.renderSavedPiece(7, 0); // clear preview
         this.renderNextPiece(7, 0);
         this.clearPreviewAndNext();
-        this.reRender = setInterval(this.render, 40);
+        this.reRender = setInterval(this.render, 30);
         this.clear();
         this.randomPiece();
         this.lost = false;
         this.score = 0;
         this.putScore();
         this.putHighScore();
-        this.frameInterval = setInterval(this.frame, 350);
+        this.frameInterval = setInterval(this.frame, 400);
         this.playMusic();
 
 
@@ -415,9 +452,25 @@ class GameLogic {
         clearInterval(this.reRender);
     }
 
+    calculateDrop(){
+        this.preDrop = this.activePiece;
+        this.dropX = this.activeX;
+        this.dropY = this.activeY;
+
+        while (this.collisionCheck(0, 1, this.preDrop, true)) {
+            this.dropY++;
+        }
+
+        this.bottomY = this.dropY;
+
+    }
+
     frame() {
         if (this.collisionCheck(0, 1)) {
             this.activeY++;
+            
+
+
         } else {
             this.stopFalling();
             this.collisionCheck(0, 1);
@@ -557,13 +610,21 @@ class GameLogic {
     }
 
 
-    collisionCheck(moveX = 0, moveY = 0, movedPiece = this.activePiece) {
+    collisionCheck(moveX = 0, moveY = 0, movedPiece = this.activePiece, preDrop = false) {
 
         if (this.activePiece.length === 0) {
             return true;
         }
-        moveX = this.activeX + moveX;
-        moveY = this.activeY + moveY;
+        if (preDrop){
+            // debugger
+            moveX = this.dropX + moveX;
+            moveY = this.dropY + moveY;
+
+        }
+        else {
+            moveX = this.activeX + moveX;
+            moveY = this.activeY + moveY;
+        }
 
         for (let yInd = 0; yInd < this.sizeOfPiece; yInd++) {
             for (let xInd = 0; xInd < this.sizeOfPiece; xInd++) {
