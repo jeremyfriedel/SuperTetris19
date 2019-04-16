@@ -70,3 +70,7 @@ ul {
 .high-score {
     color: white;
 }
+
+#canvas1 {
+    border: 1px solid black;
+}
