@@ -1,6 +1,7 @@
 class GameLogic {
 
     constructor() {
+        this.started = false;
         this.canvas = document.getElementsByTagName('canvas')[0];
         this.canvasContext = this.canvas.getContext('2d');
         this.canvasHeight = this.canvas.height;
@@ -188,11 +189,11 @@ class GameLogic {
         this.canvasContext.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
         this.canvasContext.strokeStyle = '#1B1B1B';
 
-        for (let xInd = 0; xInd < this.numOfColumns; xInd++) {
-            for (let yInd = 0; yInd < this.numOfRows; yInd++) {
-                this.strokeTile(xInd, yInd);
-            }
-        }
+        // for (let xInd = 0; xInd < this.numOfColumns; xInd++) {
+        //     for (let yInd = 0; yInd < this.numOfRows; yInd++) {
+        //         this.strokeTile(xInd, yInd);
+        //     }
+        // }
         this.canvasContext.strokeStyle = 'silver';
 
         for (let xInd = 0; xInd < this.numOfColumns; xInd++) {
@@ -367,6 +368,9 @@ class GameLogic {
     }
 
     resetGame() {
+        if (this.started === false){
+            this.started = true;
+        }
         this.resetIntervals();
         this.savedPiece = undefined;
         this.savedId = undefined;
@@ -421,18 +425,25 @@ class GameLogic {
                 this.resetIntervals();
                 this.canvasContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
                 this.canvasContext.fillStyle = 'white';
-
+                this.clearPreviewAndNext();
+                this.putHighScore();
                 this.canvasContext.fillText("Press Z to Play Again!", this.canvasWidth / 2, this.canvasHeight / 2);
                 this.canvasContext.fillText("GAME OVER!", this.canvasWidth / 2, (this.canvasHeight / 2) - 40);
 
                 // return 0;
                 // this.resetGame();
             }
-            this.randomPiece();
+            else {
+                this.randomPiece();
+            }
         }
     }
 
     rotate(activePiece) {
+        if (this.activePiece.length === 0) {
+            return activePiece;
+        }
+
         // dont rotate squares
         if (this.pieceType === 2) {
             return activePiece;
@@ -453,6 +464,13 @@ class GameLogic {
 
 
     KeyHashing(keyEvent) {
+        if (!this.started || this.lost){
+            const keyHash = { 90: 'z', 77: 'music' };
+            if (keyHash[keyEvent.keyCode] !== undefined) {
+                this.keyPress(keyHash[keyEvent.keyCode]);
+            }
+            return false;
+        }
         const keyHash = {
             90: 'z',
             38: 'up',
