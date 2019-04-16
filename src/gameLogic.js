@@ -44,7 +44,11 @@ class GameLogic {
 
         ];
         this.piecesNames = ['S piece', 'Z piece', 'Square piece', 'T piece', 'J piece', 'L piece', 'Line piece']
-        this.colors = ['#00F000', '#F02300', '#d1d100', '#9F35F0', '#022FF0', '#F0A000', '#00F0F0'];
+        // this.colors = ['#00F000', '#F02300', '#d1d100', '#9F35F0', '#022FF0', '#F0A000', '#00F0F0'];
+        
+        this.colors = ['#349E00', '#6F22A8', '#FEDE1B', '#A737FA', '#2131F8', '#FB700A', '#03E5FF'];
+
+
 
         this.drawTile = this.drawTile.bind(this);
         this.render = this.render.bind(this);
@@ -52,6 +56,7 @@ class GameLogic {
         this.frame = this.frame.bind(this);
         this.randomPiece = this.randomPiece.bind(this);
         this.clear = this.clear.bind(this);
+        this.drawTile = this.drawTile.bind(this);
         // this.testing = this.testing.bind(this);
         this.testx = 0;
         this.testy = 0;
@@ -100,6 +105,12 @@ class GameLogic {
             this.tileHeight * yInd, this.tileWidth - 2, this.tileHeight - 2);
     }
 
+    strokeTile(xInd, yInd) {
+        this.canvasContext.strokeRect(this.tileWidth * xInd,
+            this.tileHeight * yInd, this.tileWidth, this.tileHeight);
+
+    }
+
 
 
 
@@ -107,10 +118,18 @@ class GameLogic {
     render() {
 
 
-        this.canvasContext.strokeStyle = 'silver';
         this.canvasContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-        this.canvasContext.fillStyle = 'white';
+        this.canvasContext.fillStyle = 'black';
         this.canvasContext.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
+        this.canvasContext.strokeStyle = '#1B1B1B';
+        
+        for (let xInd = 0; xInd < this.numOfColumns; xInd++) {
+            for (let yInd = 0; yInd < this.numOfRows; yInd++) {
+                this.strokeTile(xInd, yInd);
+            }
+        }
+        this.canvasContext.strokeStyle = 'silver';
+
         for (let xInd = 0; xInd < this.numOfColumns; xInd++) {
             for (let yInd = 0; yInd < this.numOfRows; yInd++) {
                 if (this.matrix[yInd][xInd]) {
