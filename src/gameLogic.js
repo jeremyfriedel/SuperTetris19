@@ -43,116 +43,6 @@ class GameLogic {
             [1, 1, 1, 1]
 
         ];
-        this.piecesNames = ['S piece', 'Z piece', 'Square piece', 'T piece', 'J piece', 'L piece', 'Line piece']
-        // this.colors = ['#00F000', '#F02300', '#d1d100', '#9F35F0', '#022FF0', '#F0A000', '#00F0F0'];
-        
-        this.colors = ['#349E00', '#6F22A8', '#FEDE1B', '#A737FA', '#2131F8', '#FB700A', '#03E5FF'];
-
-
-
-        this.drawTile = this.drawTile.bind(this);
-        this.render = this.render.bind(this);
-        this.stopFalling = this.stopFalling.bind(this);
-        this.frame = this.frame.bind(this);
-        this.randomPiece = this.randomPiece.bind(this);
-        this.clear = this.clear.bind(this);
-        this.drawTile = this.drawTile.bind(this);
-        // this.testing = this.testing.bind(this);
-        this.testx = 0;
-        this.testy = 0;
-        // this.activeColor = 'darkkhaki';
-        this.activeColorBack = 'white';
-
-
-        this.lost = false;
-
-        this.activePiece = [];
-        this.activeX = 5;
-        this.activeY = 0;
-        this.sizeOfPiece = 4;
-        this.pieceType = 0;
-        this.piece = [];
-        this.notFalling = false;
-        this.keyPress = this.keyPress.bind(this);
-        this.KeyHashing = this.KeyHashing.bind(this);
-        document.body.onkeydown = this.KeyHashing;
-        this.deleteLines = this.deleteLines.bind(this);
-        this.notZero = this.notZero.bind(this);
-        this.deleteAndMoveLine = this.deleteAndMoveLine.bind(this);
-        this.putScore.bind(this);
-        this.rotate = this.rotate.bind(this);
-        this.handleSavePiece = this.handleSavePiece.bind(this);
-        this.playMusic = this.playMusic.bind(this);
-        this.renderSavedPiece = this.renderSavedPiece.bind(this);
-        this.drawPreviewTile = this.drawPreviewTile.bind(this);
-        this.putHighScore = this.putHighScore.bind(this);
-        this.putHighScore();
-        this.score = 0;
-        // this.canvasContext.lineWidth = 2;
-        this.putScore();
-        this.scoring = [0, 40, 100, 300, 1200];
-
-
-
-    }
-
-
-    drawTile(xInd, yInd) {
-
-        this.canvasContext.fillRect(this.tileWidth * xInd,
-            this.tileHeight * yInd, this.tileWidth - 2, this.tileHeight - 2);
-        this.canvasContext.strokeRect(this.tileWidth * xInd,
-            this.tileHeight * yInd, this.tileWidth - 2, this.tileHeight - 2);
-    }
-
-    strokeTile(xInd, yInd) {
-        this.canvasContext.strokeRect(this.tileWidth * xInd,
-            this.tileHeight * yInd, this.tileWidth, this.tileHeight);
-
-    }
-
-
-
-
-
-    render() {
-
-
-        this.canvasContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-        this.canvasContext.fillStyle = 'black';
-        this.canvasContext.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
-        this.canvasContext.strokeStyle = '#1B1B1B';
-        
-        for (let xInd = 0; xInd < this.numOfColumns; xInd++) {
-            for (let yInd = 0; yInd < this.numOfRows; yInd++) {
-                this.strokeTile(xInd, yInd);
-            }
-        }
-        this.canvasContext.strokeStyle = 'silver';
-
-        for (let xInd = 0; xInd < this.numOfColumns; xInd++) {
-            for (let yInd = 0; yInd < this.numOfRows; yInd++) {
-                if (this.matrix[yInd][xInd]) {
-                    this.canvasContext.fillStyle = this.colors[this.matrix[yInd][xInd] - 1];
-                    this.drawTile(xInd, yInd);
-                }
-            }
-        }
-        this.canvasContext.strokeStyle = 'silver';
-        for (let yInd = 0; yInd < this.sizeOfPiece; yInd++) {
-            for (let xInd = 0; xInd < this.sizeOfPiece; xInd++) {
-                if (this.activePiece[yInd][xInd]) {
-                    this.canvasContext.fillStyle = this.colors[this.activePiece[yInd][xInd] - 1];
-                    this.drawTile(this.activeX + xInd, this.activeY + yInd);
-                }
-            }
-        }
-    }
-
-    renderSavedPiece(shapeId, color) {
-        // this.piecesNames = ['S piece', 'Z piece', 'Square piece', 'T piece', 'J piece', 'L piece', 'Line piece']
-
-        
         this.previewArrays = [
             [
                 [0, 0, 0],
@@ -195,8 +85,139 @@ class GameLogic {
                 [0, 1, 0],
                 [0, 1, 0],
                 [0, 1, 0]
+            ],
+            [
+                [0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]
             ]
+
         ];
+        this.nextArrays = this.previewArrays;
+
+        this.piecesNames = ['S piece', 'Z piece', 'Square piece', 'T piece', 'J piece', 'L piece', 'Line piece']
+        // this.colors = ['#00F000', '#F02300', '#d1d100', '#9F35F0', '#022FF0', '#F0A000', '#00F0F0'];
+
+        this.colors = ['#349E00', '#6F22A8', '#FEDE1B', '#A737FA', '#2131F8', '#FB700A', '#03E5FF'];
+
+        this.resetPieceQueue = this.resetPieceQueue.bind(this);
+        this.resetPieceQueue();
+        this.clearPreviewAndNext = this.clearPreviewAndNext.bind(this);
+
+        this.drawTile = this.drawTile.bind(this);
+        this.render = this.render.bind(this);
+        this.stopFalling = this.stopFalling.bind(this);
+        this.frame = this.frame.bind(this);
+        this.randomPiece = this.randomPiece.bind(this);
+        this.drawNextTile = this.drawNextTile.bind(this);
+        this.clear = this.clear.bind(this);
+        this.drawTile = this.drawTile.bind(this);
+        // this.testing = this.testing.bind(this);
+        this.testx = 0;
+        this.testy = 0;
+        // this.activeColor = 'darkkhaki';
+        this.activeColorBack = 'white';
+
+
+        this.lost = false;
+
+        this.activePiece = [];
+        this.activeX = 5;
+        this.activeY = 0;
+        this.sizeOfPiece = 4;
+        this.pieceType = 0;
+        this.piece = [];
+        this.notFalling = false;
+        this.keyPress = this.keyPress.bind(this);
+        this.KeyHashing = this.KeyHashing.bind(this);
+        document.body.onkeydown = this.KeyHashing;
+        this.deleteLines = this.deleteLines.bind(this);
+        this.notZero = this.notZero.bind(this);
+        this.deleteAndMoveLine = this.deleteAndMoveLine.bind(this);
+        this.putScore.bind(this);
+        this.rotate = this.rotate.bind(this);
+        this.handleSavePiece = this.handleSavePiece.bind(this);
+        this.playMusic = this.playMusic.bind(this);
+        this.renderSavedPiece = this.renderSavedPiece.bind(this);
+        this.renderNextPiece = this.renderNextPiece.bind(this);
+        this.drawPreviewTile = this.drawPreviewTile.bind(this);
+        this.putHighScore = this.putHighScore.bind(this);
+        this.putHighScore();
+        this.score = 0;
+        // this.canvasContext.lineWidth = 2;
+        this.putScore();
+        this.scoring = [0, 40, 100, 300, 1200];
+
+
+
+    }
+
+
+    drawTile(xInd, yInd) {
+
+        this.canvasContext.fillRect(this.tileWidth * xInd,
+            this.tileHeight * yInd, this.tileWidth - 2, this.tileHeight - 2);
+        this.canvasContext.strokeRect(this.tileWidth * xInd,
+            this.tileHeight * yInd, this.tileWidth - 2, this.tileHeight - 2);
+    }
+
+    strokeTile(xInd, yInd) {
+        this.canvasContext.strokeRect(this.tileWidth * xInd,
+            this.tileHeight * yInd, this.tileWidth, this.tileHeight);
+
+    }
+
+
+    resetPieceQueue() {
+        this.pieceQueue = [Math.floor(Math.random() * this.pieces.length),
+            Math.floor(Math.random() * this.pieces.length)
+        ];
+    }
+
+
+
+
+
+
+    render() {
+
+
+        this.canvasContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+        this.canvasContext.fillStyle = 'black';
+        this.canvasContext.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
+        this.canvasContext.strokeStyle = '#1B1B1B';
+
+        for (let xInd = 0; xInd < this.numOfColumns; xInd++) {
+            for (let yInd = 0; yInd < this.numOfRows; yInd++) {
+                this.strokeTile(xInd, yInd);
+            }
+        }
+        this.canvasContext.strokeStyle = 'silver';
+
+        for (let xInd = 0; xInd < this.numOfColumns; xInd++) {
+            for (let yInd = 0; yInd < this.numOfRows; yInd++) {
+                if (this.matrix[yInd][xInd]) {
+                    this.canvasContext.fillStyle = this.colors[this.matrix[yInd][xInd] - 1];
+                    this.drawTile(xInd, yInd);
+                }
+            }
+        }
+        this.canvasContext.strokeStyle = 'silver';
+        for (let yInd = 0; yInd < this.sizeOfPiece; yInd++) {
+            for (let xInd = 0; xInd < this.sizeOfPiece; xInd++) {
+                if (this.activePiece[yInd][xInd]) {
+                    this.canvasContext.fillStyle = this.colors[this.activePiece[yInd][xInd] - 1];
+                    this.drawTile(this.activeX + xInd, this.activeY + yInd);
+                }
+            }
+        }
+    }
+
+    renderSavedPiece(shapeId, color) {
+        // this.piecesNames = ['S piece', 'Z piece', 'Square piece', 'T piece', 'J piece', 'L piece', 'Line piece']
+
+
         this.PreviewMatrix = this.previewArrays[shapeId];
         this.canvasPreview = document.getElementsByTagName('canvas')[1];
 
@@ -207,7 +228,7 @@ class GameLogic {
         this.PreviewNumOfRows = 4;
         this.PreviewtileHeight = this.canvasPreviewHeight / this.PreviewNumOfRows;
         this.PreviewtileWidth = this.PreviewtileHeight
-        this.canvasContextPreview.fillStyle = 'white';
+        this.canvasContextPreview.fillStyle = 'black';
 
         this.canvasContextPreview.strokeStyle = 'silver';
         // this.canvasContextPreview.lineWidth = 10;
@@ -223,6 +244,45 @@ class GameLogic {
         }
 
     }
+
+    renderNextPiece(shapeId, color) {
+
+
+        this.nextMatrix = this.nextArrays[shapeId];
+        this.canvasNext = document.getElementsByTagName('canvas')[2];
+
+        this.canvasContextNext = this.canvasNext.getContext('2d');
+        this.canvasNextHeight = this.canvasNext.height;
+        this.canvasNextWidth = this.canvasNext.width;
+        this.NextNumOfColumns = 3;
+        this.NextNumOfRows = 4;
+        this.NexttileHeight = this.canvasNextHeight / this.NextNumOfRows;
+        this.NexttileWidth = this.NexttileHeight;
+        this.canvasContextNext.fillStyle = 'black';
+
+        this.canvasContextNext.strokeStyle = 'silver';
+        this.canvasContextNext.clearRect(0, 0, this.canvasNextWidth, this.canvasNextHeight);
+        this.canvasContextNext.fillRect(0, 0, this.canvasNextWidth, this.canvasNextHeight);
+        for (let xInd = 0; xInd < this.NextNumOfColumns; xInd++) {
+            for (let yInd = 0; yInd < this.NextNumOfRows; yInd++) {
+                if (this.nextMatrix[yInd][xInd]) {
+                    this.canvasContextNext.fillStyle = this.colors[color];
+                    this.drawNextTile(xInd, yInd);
+                }
+            }
+        }
+
+    }
+
+    drawNextTile(xInd, yInd) {
+
+        this.canvasContextNext.fillRect(this.NexttileWidth * xInd,
+            this.NexttileHeight * yInd, this.NexttileWidth - 2, this.NexttileHeight - 2);
+        this.canvasContextNext.strokeRect(this.NexttileWidth * xInd,
+            this.NexttileHeight * yInd, this.NexttileWidth - 2, this.NexttileHeight - 2);
+    }
+
+
 
     drawPreviewTile(xInd, yInd) {
 
@@ -241,8 +301,12 @@ class GameLogic {
     randomPiece(givenPiece, givenId) {
         if (givenPiece === undefined) {
             // debugger
-            this.pieceType = Math.floor(Math.random() * this.pieces.length);
+            // this.pieceType = Math.floor(Math.random() * this.pieces.length);
+            // this.piece = this.pieces[this.pieceType];
+            this.pieceType = this.pieceQueue.shift();
+            this.pieceQueue.push(Math.floor(Math.random() * this.pieces.length));
             this.piece = this.pieces[this.pieceType];
+            this.renderNextPiece(this.pieceQueue[0], this.pieceQueue[0]);
         } else {
             // debugger
             this.pieceType = givenId;
@@ -297,8 +361,19 @@ class GameLogic {
 
     }
 
+    clearPreviewAndNext(){
+        this.canvasContextNext.clearRect(0, 0, this.canvasNextWidth, this.canvasNextHeight);
+        this.canvasContextPreview.clearRect(0, 0, this.canvasPreviewWidth, this.canvasPreviewHeight);
+    }
+
     resetGame() {
         this.resetIntervals();
+        this.savedPiece = undefined;
+        this.savedId = undefined;
+        this.resetPieceQueue();
+        this.renderSavedPiece(7, 0); // clear preview
+        this.renderNextPiece(7, 0);
+        this.clearPreviewAndNext();
         this.reRender = setInterval(this.render, 40);
         this.clear();
         this.randomPiece();
@@ -359,7 +434,7 @@ class GameLogic {
 
     rotate(activePiece) {
         // dont rotate squares
-        if (this.pieceType === 2){
+        if (this.pieceType === 2) {
             return activePiece;
         }
         let rotatedPiece = [];
@@ -463,8 +538,8 @@ class GameLogic {
 
 
     collisionCheck(moveX = 0, moveY = 0, movedPiece = this.activePiece) {
-        
-        if (this.activePiece.length === 0){
+
+        if (this.activePiece.length === 0) {
             return true;
         }
         moveX = this.activeX + moveX;
@@ -485,7 +560,7 @@ class GameLogic {
                             // this.score = "LOST";
                             // this.putScore();
                             // document.cookie = `score=${this.score}`;
-                            if (document.cookie < this.score || this.score === 0){
+                            if (document.cookie < this.score || this.score === 0) {
                                 let d = new Date();
                                 d.setTime(d.getTime() + (3 * 24 * 60 * 60 * 1000));
                                 let expires = "expires=" + d.toUTCString();
