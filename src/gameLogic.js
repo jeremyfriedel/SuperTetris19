@@ -152,12 +152,10 @@ class GameLogic {
         this.putHighScore = this.putHighScore.bind(this);
         this.putHighScore();
         this.score = 0;
-        // this.canvasContext.lineWidth = 2;
         this.putScore();
         this.scoring = [0, 40, 100, 300, 1200];
-        // this.pressZ = this.pressZ.bind(this);
-        // setTimeout(this.pressZ, 0);
-        this.canvasContext.fillText("Press Z!", this.canvasWidth / 2, this.canvasHeight / 2);
+        this.pressZ = this.pressZ.bind(this);
+        setTimeout(this.pressZ, 0);
 
 
 
@@ -196,6 +194,7 @@ class GameLogic {
     
 
     pressZ() {
+
         this.canvasContext.fillText("Press Z!", this.canvasWidth / 2, this.canvasHeight / 2);
 
     }
@@ -338,6 +337,10 @@ class GameLogic {
             this.PreviewtileHeight * yInd, this.PreviewtileWidth - 2, this.PreviewtileHeight - 2);
         // this.canvasContextPreview.strokeRect(this.PreviewtileWidth * xInd,
         //     this.PreviewtileHeight * yInd, this.PreviewtileWidth - 2, this.PreviewtileHeight - 2);
+    }
+
+    pressZ() {
+        this.canvasContext.fillText("Press Z!", this.canvasWidth / 2, this.canvasHeight / 2);
     }
 
 
