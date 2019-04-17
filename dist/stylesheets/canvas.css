@@ -1,7 +1,7 @@
 @font-face {
-    font-family: 'super_mario_256regular';
-    src: url('./fonts/mario/supermario256-webfont.woff2') format('woff2'),
-        url('./fonts/mario/supermario256-webfont.woff') format('woff');
+    font-family: 'arcade';
+    src: url('./fonts/Arcade/arcade.woff2') format('woff2'),
+        url('./fonts/Arcade/arcade.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -9,19 +9,36 @@
 body {
     background-image: url('../images/background.gif');
     background-size: cover;
+    
     background-repeat: no-repeat;
 
 }
 
 .score-div {
-    color: black;
-    position: relative;
-    right: 30%;
-    margin-top: 30%;
 }
 
+.score-levels {
+    position: relative;
+    right: 20%;
+    margin-top: 20%;
+
+}
+
+.level-div {
+    /* height: 30%; */
+    background-color: #422445;
+    color: white;
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top:4em;
+
+
+}
+
+
 .score-div{
-    height: 30%;
+    /* height: 30%; */
     background-color: #422445;
     color: white;
     border: 1px solid black;
@@ -83,6 +100,8 @@ ul {
 
 #canvas1 {
     border: 1px solid black;
+    background-color: #241426;
+
 }
 
 #canvas3 {
@@ -98,8 +117,8 @@ ul {
 
 .hold-and-preview{
     position: relative;
-    left: 30%;
-    margin-top: 30%;
+    left: 20%;
+    margin-top: 20%;
 
 
 }
@@ -110,6 +129,11 @@ ul {
 
 
 * {
-    font-family: 'super_mario_256regular';
-    letter-spacing: 0.1em;
+    font-family: 'arcade';
+    /* letter-spacing: 0.1em; */
+}
+
+#level {
+    text-align: center;
+
 }

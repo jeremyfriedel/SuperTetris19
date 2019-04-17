@@ -10,7 +10,7 @@ class GameLogic {
         this.numOfRows = 20;
         this.tileHeight = this.canvasHeight / this.numOfRows;
         this.tileWidth = this.canvasWidth / this.numOfColumns;
-        this.canvasContext.font = '30px Helvetica';
+        this.canvasContext.font = '30px Arial';
         
         this.canvasContext.fillStyle = 'white';
         this.canvasContext.textAlign = "center";
@@ -97,12 +97,13 @@ class GameLogic {
 
         ];
         this.nextArrays = this.previewArrays;
+        this.level = 1;
 
         this.piecesNames = ['S piece', 'Z piece', 'Square', 'T piece', 'J piece', 'L piece', 'Line piece']
         // this.colors = ['#00F000', '#F02300', '#d1d100', '#9F35F0', '#022FF0', '#F0A000', '#00F0F0'];
 
         this.colors =     ['#349E00', '#EC003F', '#FEDE1B', '#A737FA', '#2131F8', '#FB700A', '#03E5FF'];
-        this.dropColors = ['#194204', '#800000', '#3D3107', '#27003B', '#04003C', '#3B1103', '#05383A'];
+        this.dropColors = ['#194204', '#38000A', '#3D3107', '#27003B', '#04003C', '#3B1103', '#05383A'];
 
         this.resetPieceQueue = this.resetPieceQueue.bind(this);
         this.resetPieceQueue();
@@ -110,6 +111,7 @@ class GameLogic {
 
         this.drawTile = this.drawTile.bind(this);
         this.render = this.render.bind(this);
+        this.putLevel = this.putLevel.bind(this);
         this.stopFalling = this.stopFalling.bind(this);
         this.calculateDrop = this.calculateDrop.bind(this);
         this.renderDrop = this.renderDrop.bind(this);
@@ -423,7 +425,8 @@ class GameLogic {
         this.score = 0;
         this.putScore();
         this.putHighScore();
-        this.frameInterval = setInterval(this.frame, 400);
+        this.frameRate = 500;
+        this.frameInterval = setInterval(this.frame, this.frameRate);
         this.playMusic();
 
 
@@ -436,7 +439,7 @@ class GameLogic {
 
         if (this.audioEnabled) {
             if (!this.themeMusic) {
-                this.themeMusic = new Audio('./music/Tetristheme.mp3');
+                this.themeMusic = new Audio('./music/TetrisTheme.mp3');
                 this.themeMusic.volume = 0.15;
                 this.themeMusic.loop = true;
             }
@@ -699,8 +702,28 @@ class GameLogic {
     }
 
     putScore() {
-        let scoreHTML = document.getElementById('score');
-        scoreHTML.textContent = this.score;
+        if (!this.scoreHTML){
+            this.scoreHTML = document.getElementById('score');
+        }
+        this.scoreHTML.textContent = this.score;
+        this.putLevel();
+    }
+
+    putLevel() {
+        if (!this.levelHTML) {
+            this.levelHTML = document.getElementById('level');
+            this.levelHTML.textContent = this.level;
+        }
+        if (this.level !== Math.floor(this.score / 1200) + 1) {
+            this.level = Math.floor(this.score / 1200) + 1;
+            this.levelHTML.textContent = this.level;
+            clearInterval(this.frameInterval);
+            this.frameRate -= (this.frameRate * 0.05);
+            console.log(this.frameRate)
+            this.frameInterval = setInterval(this.frame, this.frameRate);
+
+        }
+
     }
 
     putHighScore() {
