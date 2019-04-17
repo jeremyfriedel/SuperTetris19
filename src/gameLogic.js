@@ -11,12 +11,12 @@ class GameLogic {
         this.tileHeight = this.canvasHeight / this.numOfRows;
         this.tileWidth = this.canvasWidth / this.numOfColumns;
         this.canvasContext.font = '30px arcade';
-        
+
         this.canvasContext.fillStyle = 'white';
         this.canvasContext.textAlign = "center";
         this.audioEnabled = false;
 
-        
+
 
 
 
@@ -101,7 +101,7 @@ class GameLogic {
         this.piecesNames = ['S piece', 'Z piece', 'Square', 'T piece', 'J piece', 'L piece', 'Line piece']
         // this.colors = ['#00F000', '#F02300', '#d1d100', '#9F35F0', '#022FF0', '#F0A000', '#00F0F0'];
 
-        this.colors =     ['#349E00', '#EC003F', '#FEDE1B', '#A737FA', '#2131F8', '#FB700A', '#03E5FF'];
+        this.colors = ['#349E00', '#EC003F', '#FEDE1B', '#A737FA', '#2131F8', '#FB700A', '#03E5FF'];
         this.dropColors = ['#194204', '#38000A', '#3D3107', '#27003B', '#04003C', '#3B1103', '#05383A'];
 
         this.resetPieceQueue = this.resetPieceQueue.bind(this);
@@ -120,15 +120,10 @@ class GameLogic {
         this.drawNextTile = this.drawNextTile.bind(this);
         this.clear = this.clear.bind(this);
         this.drawTile = this.drawTile.bind(this);
-        // this.testing = this.testing.bind(this);
         this.testx = 0;
         this.testy = 0;
-        // this.activeColor = 'darkkhaki';
         this.activeColorBack = 'white';
-
-
         this.lost = false;
-
         this.activePiece = [];
         this.activeX = 5;
         this.activeY = 0;
@@ -150,14 +145,12 @@ class GameLogic {
         this.renderNextPiece = this.renderNextPiece.bind(this);
         this.drawPreviewTile = this.drawPreviewTile.bind(this);
         this.putHighScore = this.putHighScore.bind(this);
+        this.pressZ = this.pressZ.bind(this);
         this.putHighScore();
         this.score = 0;
         this.putScore();
         this.scoring = [0, 40, 100, 300, 1200];
-        this.pressZ = this.pressZ.bind(this);
-        setTimeout(this.pressZ, 0);
-
-
+        setTimeout(this.pressZ, 0); // wait for font css
 
     }
 
@@ -191,7 +184,7 @@ class GameLogic {
     }
 
 
-    
+
 
     pressZ() {
 
@@ -246,17 +239,17 @@ class GameLogic {
 
     }
 
-    renderDrop(){
+    renderDrop() {
         // if (this.dropY - this.activeY > 3) {
-            for (let yInd = 0; yInd < this.sizeOfPiece; yInd++) {
-                for (let xInd = 0; xInd < this.sizeOfPiece; xInd++) {
-                    // debugger
-                    if (this.preDrop[yInd][xInd]) {
-                        this.canvasContext.fillStyle = this.dropColors[this.preDrop[yInd][xInd] - 1];
-                        this.drawDropTile(this.dropX + xInd, this.bottomY + yInd);
-                    }
+        for (let yInd = 0; yInd < this.sizeOfPiece; yInd++) {
+            for (let xInd = 0; xInd < this.sizeOfPiece; xInd++) {
+                // debugger
+                if (this.preDrop[yInd][xInd]) {
+                    this.canvasContext.fillStyle = this.dropColors[this.preDrop[yInd][xInd] - 1];
+                    this.drawDropTile(this.dropX + xInd, this.bottomY + yInd);
                 }
             }
+        }
         // }
 
     }
@@ -416,13 +409,13 @@ class GameLogic {
 
     }
 
-    clearPreviewAndNext(){
+    clearPreviewAndNext() {
         this.canvasContextNext.clearRect(0, 0, this.canvasNextWidth, this.canvasNextHeight);
         this.canvasContextPreview.clearRect(0, 0, this.canvasPreviewWidth, this.canvasPreviewHeight);
     }
 
     resetGame() {
-        if (this.started === false){
+        if (this.started === false) {
             this.started = true;
         }
         this.resetIntervals();
@@ -471,7 +464,7 @@ class GameLogic {
         clearInterval(this.reRender);
     }
 
-    calculateDrop(){
+    calculateDrop() {
         this.preDrop = this.activePiece;
         this.dropX = this.activeX;
         this.dropY = this.activeY;
@@ -487,7 +480,7 @@ class GameLogic {
     frame() {
         if (this.collisionCheck(0, 1)) {
             this.activeY++;
-            
+
 
 
         } else {
@@ -508,8 +501,7 @@ class GameLogic {
 
                 // return 0;
                 // this.resetGame();
-            }
-            else {
+            } else {
                 this.randomPiece();
             }
         }
@@ -540,8 +532,11 @@ class GameLogic {
 
 
     KeyHashing(keyEvent) {
-        if (!this.started || this.lost){
-            const keyHash = { 90: 'z', 77: 'music' };
+        if (!this.started || this.lost) {
+            const keyHash = {
+                90: 'z',
+                77: 'music'
+            };
             if (keyHash[keyEvent.keyCode] !== undefined) {
                 this.keyPress(keyHash[keyEvent.keyCode]);
             }
@@ -636,13 +631,12 @@ class GameLogic {
         if (this.activePiece.length === 0) {
             return true;
         }
-        if (preDrop){
+        if (preDrop) {
             // debugger
             moveX = this.dropX + moveX;
             moveY = this.dropY + moveY;
 
-        }
-        else {
+        } else {
             moveX = this.activeX + moveX;
             moveY = this.activeY + moveY;
         }
@@ -662,7 +656,7 @@ class GameLogic {
                             // this.score = "LOST";
                             // this.putScore();
                             // document.cookie = `score=${this.score}`;
-                            if (document.cookie < this.score || this.score === 0) {
+                            if (document.cookie < this.score) {
                                 let d = new Date();
                                 d.setTime(d.getTime() + (3 * 24 * 60 * 60 * 1000));
                                 let expires = "expires=" + d.toUTCString();
@@ -714,17 +708,17 @@ class GameLogic {
 
         }
         // debugger
-        
-        if (this.combo !== 0){
+
+        if (this.combo !== 0) {
             this.score += this.scoring[this.combo];
             this.putScore();
         }
-        
+
 
     }
 
     putScore() {
-        if (!this.scoreHTML){
+        if (!this.scoreHTML) {
             this.scoreHTML = document.getElementById('score');
         }
         this.scoreHTML.textContent = this.score;
@@ -737,7 +731,7 @@ class GameLogic {
             this.levelHTML.textContent = this.level;
         }
         if (this.level !== Math.floor(this.score / 1200) + 1) {
-            
+
             this.level = Math.floor(this.score / 1200) + 1;
             this.levelHTML.textContent = this.level;
             clearInterval(this.frameInterval);
