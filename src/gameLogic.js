@@ -719,7 +719,6 @@ class GameLogic {
             this.levelHTML.textContent = this.level;
             clearInterval(this.frameInterval);
             this.frameRate -= (this.frameRate * 0.05);
-            console.log(this.frameRate)
             this.frameInterval = setInterval(this.frame, this.frameRate);
 
         }
