@@ -10,13 +10,12 @@ class GameLogic {
         this.numOfRows = 20;
         this.tileHeight = this.canvasHeight / this.numOfRows;
         this.tileWidth = this.canvasWidth / this.numOfColumns;
-        this.canvasContext.font = '30px Arial';
+        this.canvasContext.font = '30px arcade';
         
         this.canvasContext.fillStyle = 'white';
         this.canvasContext.textAlign = "center";
         this.audioEnabled = false;
 
-        this.canvasContext.fillText("Press Z to Play!", this.canvasWidth / 2, this.canvasHeight / 2);
         
 
 
@@ -156,6 +155,9 @@ class GameLogic {
         // this.canvasContext.lineWidth = 2;
         this.putScore();
         this.scoring = [0, 40, 100, 300, 1200];
+        // this.pressZ = this.pressZ.bind(this);
+        // setTimeout(this.pressZ, 0);
+        this.canvasContext.fillText("Press Z!", this.canvasWidth / 2, this.canvasHeight / 2);
 
 
 
@@ -189,6 +191,15 @@ class GameLogic {
             Math.floor(Math.random() * this.pieces.length)
         ];
     }
+
+
+    
+
+    pressZ() {
+        this.canvasContext.fillText("Press Z!", this.canvasWidth / 2, this.canvasHeight / 2);
+
+    }
+
 
 
 
@@ -423,7 +434,9 @@ class GameLogic {
         this.randomPiece();
         this.lost = false;
         this.score = 0;
+        this.level = 1;
         this.putScore();
+        this.levelHTML.textContent = this.level;
         this.putHighScore();
         this.frameRate = 500;
         this.frameInterval = setInterval(this.frame, this.frameRate);
@@ -481,11 +494,13 @@ class GameLogic {
             if (this.lost) {
                 this.resetIntervals();
                 this.canvasContext.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-                this.canvasContext.fillStyle = 'white';
+                this.canvasContext.fillStyle = '#FFF1B9';
                 this.clearPreviewAndNext();
                 this.putHighScore();
-                this.canvasContext.font = '20px Helvetica';
-                this.canvasContext.fillText("Press Z to Play Again!", this.canvasWidth / 2, this.canvasHeight / 2);
+                this.canvasContext.font = '20px arcade';
+                this.canvasContext.textAlign = "center";
+
+                this.canvasContext.fillText("Press Z", this.canvasWidth / 2, this.canvasHeight / 2);
                 this.canvasContext.fillText("GAME OVER!", this.canvasWidth / 2, (this.canvasHeight / 2) - 40);
 
                 // return 0;
@@ -696,8 +711,12 @@ class GameLogic {
 
         }
         // debugger
-        this.score += this.scoring[this.combo];
-        this.putScore();
+        
+        if (this.combo !== 0){
+            this.score += this.scoring[this.combo];
+            this.putScore();
+        }
+        
 
     }
 
@@ -715,6 +734,7 @@ class GameLogic {
             this.levelHTML.textContent = this.level;
         }
         if (this.level !== Math.floor(this.score / 1200) + 1) {
+            
             this.level = Math.floor(this.score / 1200) + 1;
             this.levelHTML.textContent = this.level;
             clearInterval(this.frameInterval);
