@@ -1,16 +1,9 @@
-@font-face {
-    font-family: 'arcade';
-    src: url('./fonts/Arcade/arcade.woff2') format('woff2'),
-        url('./fonts/Arcade/arcade.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 body {
     background-image: url('../images/background.gif');
     background-size: cover;
     
     background-repeat: no-repeat;
+    background-color: #422445;
 
 }
 
@@ -28,7 +21,7 @@ body {
     /* height: 30%; */
     background-color: #422445;
     color: white;
-    border: 1px solid black;
+    border: 1px solid #422445;
     padding-left: 10px;
     padding-right: 10px;
     margin-top:4em;
@@ -41,7 +34,7 @@ body {
     /* height: 30%; */
     background-color: #422445;
     color: white;
-    border: 1px solid black;
+    border: 1px solid #422445;
     padding-left: 10px;
     padding-right: 10px;
     
@@ -53,12 +46,13 @@ body {
 }
 
 .instructions {
-    color: black;
+    color: #FFF1B9;
     position: absolute;
-    font-size: 20px;
+    font-size: 14px;
     top: 0;
     right: 0;
     text-align: left;
+    line-height: 20px;
 }
 
 .saved-piece-canvas  {
@@ -69,9 +63,9 @@ body {
 }
     
 
-.saved-piece-canvas > canvas {
+#canvas2 {
     /* background-color: black; */
-    border: 1px black solid;
+    /* border: 1px #422445 solid; */
 
     
 }
@@ -90,22 +84,24 @@ ul {
 
 .hold-piece, .next-piece{
     text-align: center;
-    color: black;
+    color: white;
     font-size: 20px;
+    margin-bottom: 6px;
 }
 
 .high-score {
-    color: black;
+    color: #FFF1B9;
+    font-size: 12px;
 }
 
 #canvas1 {
-    border: 1px solid black;
+    /* border: 1px solid #422445; */
     background-color: #241426;
 
 }
 
 #canvas3 {
-    border: 1px solid black;
+    /* border: 1px solid #FFB5B5; */
     background-color: #422445
 
 }
