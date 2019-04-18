@@ -18,6 +18,7 @@ export const lineClearPlay = function(){
     if (this.audioEnabled) {
         if (!this.linecleareffect) {
             this.linecleareffect = new Audio('./music/line.wav');
+            this.linecleareffect.volume = 0.15;
         }
         this.linecleareffect.play();
     }

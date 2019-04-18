@@ -11,7 +11,7 @@ export const presets = function() {
     this.canvasContext.font = '30px arcade';
     this.canvasContext.fillStyle = 'white';
     this.canvasContext.textAlign = "center";
-    this.audioEnabled = false;
+    this.audioEnabled = true;
     this.matrix = [];
     this.level = 1;
     this.testx = 0;
@@ -27,6 +27,7 @@ export const presets = function() {
     this.notFalling = false;
     this.scoring = [0, 40, 100, 300, 1200];
     this.score = 0;
+    document.cookie = document.cookie || 0;
 };
 
 export const startup = function(){
