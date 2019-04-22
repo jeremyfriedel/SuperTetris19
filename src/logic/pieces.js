@@ -10,7 +10,7 @@ export const resetPieceQueue = function () {
     ];
 };
 
-export const piecesArr = [
+export const pieces = [
     [0, 1, 1, 0,
         1, 1
     ],
@@ -84,6 +84,8 @@ export const previewArrays = [
     ]
 
 ];
+
+export const nextArrays = previewArrays;
 
 
 export const randomPiece = function (givenPiece, givenId) {
