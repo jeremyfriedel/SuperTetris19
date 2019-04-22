@@ -91,6 +91,7 @@ ul {
 }
 
 .high-score {
+    margin-left: 5em;
     color: #FFF1B9;
     font-size: 12px;
 }
