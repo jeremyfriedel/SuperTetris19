@@ -8,7 +8,7 @@ HTML5 Canvas ES6 JavaScript clone of Tetris.
 
 # Getting Started!
 
-+ To play a live version go to [I'm an inline-style link](jeremyfriedel.github.io/Tetris)
++ To play a live version go to [here](jeremyfriedel.github.io/Tetris)
 + To play a local version, download the repository and simply load dist/index.html
 + To modify a local version, simply run webpack again for your changes to be in effect.
 
