@@ -1,74 +1,42 @@
 body {
-    background-image: url('../images/background.gif');
+    background-image: url(../images/background.gif);
     background-size: cover;
-    
     background-repeat: no-repeat;
-    background-color: #422445;
-
-}
-
-.score-div {
+    background-color: #422445
 }
 
 .score-levels {
     position: relative;
     right: 20%;
-    margin-top: 20%;
-
+    margin-top: 20%
 }
 
 .level-div {
-    /* height: 30%; */
-    background-color: #422445;
-    color: white;
-    border: 1px solid #422445;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-top:4em;
-
-
+    margin-top: 4em
 }
 
-
-.score-div{
-    /* height: 30%; */
+.level-div,
+.score-div {
     background-color: #422445;
-    color: white;
+    color: #fff;
     border: 1px solid #422445;
     padding-left: 10px;
-    padding-right: 10px;
-    
+    padding-right: 10px
 }
-
 
 #score {
-    text-align: center;
+    text-align: center
 }
 
 .instructions {
-    color: #FFF1B9;
+    color: #fff1b9;
     position: absolute;
     font-size: 16px;
     top: 0;
     right: 0;
     text-align: left;
     line-height: 20px;
-    margin-right: 10px;
-}
-
-.saved-piece-canvas  {
-        /* position: relative;
-        left: 30%;
-        margin-top: 30%; */
-        
-}
-    
-
-#canvas2 {
-    /* background-color: black; */
-    /* border: 1px #422445 solid; */
-
-    
+    margin-right: 10px
 }
 
 .main {
@@ -76,62 +44,50 @@ body {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%)
 }
 
 ul {
-    list-style: none;
+    list-style: none
 }
 
-.hold-piece, .next-piece{
+.hold-piece,
+.next-piece {
     text-align: center;
-    color: white;
+    color: #fff;
     font-size: 20px;
-    margin-bottom: 6px;
+    margin-bottom: 6px
 }
 
 .high-score {
     margin-left: 5em;
-    color: #FFF1B9;
-    font-size: 12px;
+    color: #fff1b9;
+    font-size: 12px
 }
 
 #canvas1 {
-    /* border: 1px solid #422445; */
-    background-color: #241426;
-
+    background-color: #241426
 }
 
+#canvas2,
 #canvas3 {
-    /* border: 1px solid #FFB5B5; */
-    background-color: #422445;
-
-}
-
-#canvas2 {
     background-color: #422445
-
 }
 
-.hold-and-preview{
+.hold-and-preview {
     position: relative;
     left: 20%;
-    margin-top: 20%;
-
-
+    margin-top: 20%
 }
 
 .next-piece {
-    margin-top:4em;
+    margin-top: 4em
 }
 
-
 * {
-    font-family: 'arcade';
-    /* letter-spacing: 0.1em; */
+    font-family: 'arcade'
 }
 
 #level {
-    text-align: center;
-
+    text-align: center
 }
