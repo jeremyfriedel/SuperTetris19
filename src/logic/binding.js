@@ -14,7 +14,7 @@ import * as presets from "./presets";
 export const binding = function () {
 
     let importArr = [draw, pieces, render, collision, reset, music, input, save, lines, score, presets];
-
+    // bind everything
     for (let keyClass in importArr) {
         for (let keyFunc in importArr[keyClass]) {
             if (typeof importArr[keyClass][keyFunc] === 'function') {

@@ -30,5 +30,4 @@ export const deleteLines = function() {
         this.putScore();
     }
 
-
 };
