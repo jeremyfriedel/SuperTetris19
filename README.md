@@ -12,4 +12,4 @@ HTML5 Canvas ES6 JavaScript clone of Tetris.
 + To play a local version, download the repository and simply load dist/index.html
 + To modify a local version, simply run webpack again for your changes to be in effect.
 
-![screenshot](docs/ 	tetrisscreenshot.png)
+![screenshot](docs/tetrisscreenshot.png)
